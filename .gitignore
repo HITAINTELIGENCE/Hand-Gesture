@@ -1,0 +1,5 @@
+# Bỏ qua thư mục __pycache__
+__pycache__/
+
+# Bỏ qua thư mục .idea
+.idea/
