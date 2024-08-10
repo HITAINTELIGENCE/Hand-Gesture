@@ -12,9 +12,7 @@ import torch.optim as optim
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from sklearn.metrics import confusion_matrix
 
-from dataloader.jhmdb_loader import load_jhmdb_data, Jdata_generator, JConfig
-from dataloader.shrec_loader import load_shrec_data, Sdata_generator, SConfig
-from dataloader.DHG_loader import load_dhg_data, Ddata_generator,DConfig
+from data_loader.shrec_loader import load_shrec_data, Sdata_generator, SConfig
 from models.DDNet_Original import DDNet_Original as DDNet
 from utils import makedir
 import sys
@@ -129,12 +127,7 @@ def main():
     data_generator = None
     load_data = None
     clc_num = 0
-    if args.dataset == 0:
-        Config = JConfig()
-        data_generator = Jdata_generator
-        load_data = load_jhmdb_data
-        clc_num = Config.clc_num
-    elif args.dataset == 1:
+    if args.dataset == 1:
         Config = SConfig()
         load_data = load_shrec_data
         clc_num = Config.class_coarse_num
@@ -144,11 +137,6 @@ def main():
         clc_num = Config.class_fine_num
         load_data = load_shrec_data
         data_generator = Sdata_generator('fine_label')
-    elif args.dataset == 3:
-        Config = DConfig()
-        clc_num = Config.class_num
-        load_data = load_dhg_data
-        data_generator = Ddata_generator
     else:
         print("Unsupported dataset!")
         sys.exit(1)

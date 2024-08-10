@@ -105,12 +105,6 @@ def norm_train2d(p):
     p[:, :, 1] = p[:, :, 1] - np.mean(p[:, :, 1])
     # p[:,:,2] = p[:,:,2]-np.mean(p[:,:,2])
     return p
-def prob_viz(res, actrions, input_frame: np.ndarray, colors):
-    output_frame = input_frame.copy()
-    for num, prob in enumerate(res):
-        cv2.rectangle(output_frame, (0,60+num*40), (int(prob*100), 90+num*40), colors[num], -1)
-        cv2.putText(output_frame, actrions[num], (0, 85+num*40), cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),2, cv2.LINE_AA)
-    return output_frame
 def main():
     # labels = ['xin chao rat vui duoc gap ban', 'tam biet hen gap lai', 'xin cam on ban that tot bung',
     #           'toi xin loi ban co sao khong', 'toi yeu gia dinh va ban be', 'toi la hoc sinh', 'toi thich dong vat',
@@ -138,7 +132,6 @@ def main():
         while cap.isOpened():
             success, image = cap.read()
             heigh, width, _ = image.shape
-            cv2.rectangle(image, (width - 300, 0), (300 + width, 300 + heigh), (0, 255, 0), 2)
             # Flip the image horizontally for a selfie-view display.
             # image = cv2.flip(image, 1)
             # To improve performance, optionally mark the image as not writeable to
@@ -184,26 +177,17 @@ def main():
                     models.eval()
                     with torch.no_grad():
                         Y_pred = models(X_test_rt_1, X_test_rt_2).cpu().numpy()
-                    print(Y_pred.shape)
-                    print(np.argmax(Y_pred))
-                    predictions.append(np.argmax(Y_pred))
-                    print(predictions)
-                    print(Y_pred.flatten())
-                    # 3. Viz logic
-                    print(predictions[-10:])
-                    if Y_pred.flatten()[np.argmax(Y_pred.flatten())] > threshold:
-                        if len(sentence) > 0:
-                            if labels[np.argmax(Y_pred)] != sentence[-1]:
-                                sentence.append(labels[np.argmax(Y_pred.flatten())])
-                        else:
-                            sentence.append(labels[np.argmax(Y_pred.flatten())])
-
+                    models.eval()
+                    print(Y_pred)
+                    if np.max(Y_pred) >= threshold:
+                        sentence.append(labels[np.argmax(Y_pred)])
+                    else:
+                        sentence.append(None)
                     # Viz probabilities
 
                     sequence = []
 
                     print(sentence)
-                image = prob_viz(Y_pred.flatten(), labels, image, colors)
             # Show fps
             time1 = time.time()
             fps = 1 / (time1 - time0)
