@@ -51,10 +51,9 @@ def predict(request: PredictionRequest):
         sentences = []
         labels = ['Tap', 'Grab', 'RC', 'Pinch', 'Expand', 'RCC', 'SR', 'SL', 'SD', 'SU', 'SV', 'S+', 'SX', 'Shake']
         # Chuyển đổi danh sách thành numpy arrays và sau đó thành PyTorch tensors
-
+        
         X_test_rt_1 = torch.tensor(np.array(request.X_test_rt_1)).float()
         X_test_rt_2 = torch.tensor(np.array(request.X_test_rt_2)).float()
-        
         # Print shapes for debugging
 
         print("X_test_rt_1 shape:", X_test_rt_1.shape)

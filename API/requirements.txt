@@ -1,0 +1,10 @@
+opencv-python
+streamlit
+mediapipe
+numpy
+torch
+requests
+python-pptx
+Pillow
+tqdm
+scipy
