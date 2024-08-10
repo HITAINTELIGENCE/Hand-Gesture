@@ -38,8 +38,8 @@ pip install -r requirements.txt
 ```
 **Mở 1 terminal hàm main.py chạy code:**
 ```bash
-uvicorn main:app --reload
+uvicorn api:app --reload
 ```
 **Mở 1 terminal hàm app_streamlit.py chạy code:**
 ```bash
-streamlit run app_streamlit.py
+streamlit run app_streamlit_v2.py
