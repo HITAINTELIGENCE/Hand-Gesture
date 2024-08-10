@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Gesture Recognition</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Hand Gesture Recognition</h1>
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="sendButton">Send Data</button>
+        <p id="status"></p>
+    </div>
+
+    <script src="scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1622260059/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.4.1622260059/drawing_utils.js"></script>
+</body>
+</html>
