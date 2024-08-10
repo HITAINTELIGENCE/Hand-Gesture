@@ -79,11 +79,6 @@ def add_custom_css():
         """, unsafe_allow_html=True)
 def main():
     add_custom_css()
-    image_path = 'logo.jpg'
-
-    # Hiển thị hình ảnh trên Streamlit
-    st.image(image_path, use_column_width=True)
-    st.title("Webcam Live Feed with Hand Tracking")
     col1, col2, col3 = st.columns([1, 2, 1])
     st.title("Webcam Live Feed with Hand Tracking")
 
