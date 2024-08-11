@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-#! coding:utf-8
 
 from models.utils import poses_motion
 import torch.nn.functional as F

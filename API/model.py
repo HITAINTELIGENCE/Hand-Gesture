@@ -11,3 +11,4 @@ def load_model():
     model.eval()
     
     return model
+

@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 #! coding:utf-8
 
-from models.utils import poses_motion
+from utils import poses_motion
 import torch.nn.functional as F
 import torch.nn as nn
 import torch
@@ -23,7 +23,7 @@ class c1D(nn.Module):
         # x (B,D,C)
         x = x.permute(0, 2, 1)
         # output (B,filters,C)
-        if(self.cut_last_element):
+        if (self.cut_last_element):
             output = self.conv1(x)[:, :, :-1]
         else:
             output = self.conv1(x)
@@ -137,6 +137,7 @@ class DDNet_Original(nn.Module):
             nn.Linear(128, class_num),
             nn.Softmax(dim=1)
         )
+
     def forward(self, M, P=None):
         x = self.jcd_conv1(M)
         x = self.jcd_conv2(x)
@@ -148,7 +149,7 @@ class DDNet_Original(nn.Module):
         x = self.jcd_pool(x)
         x = x.permute(0, 2, 1)
 
-        diff_slow, diff_fast = poses_motion(P)#poses_featmotion(P)#
+        diff_slow, diff_fast = poses_motion(P)  # poses_featmotion(P)#
         x_d_slow = self.slow_conv1(diff_slow)
         x_d_slow = self.slow_conv2(x_d_slow)
         x_d_slow = self.slow_conv3(x_d_slow)
